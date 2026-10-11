@@ -65,22 +65,27 @@ Testes unitários devem ser puros (Mockito, sem `@SpringBootTest`), para não de
 
 ## 5. Divisão das classes (1 classe de alta complexidade por integrante)
 
-O requisito é complexidade ciclomática ≥ 10 por classe. Ranking por pontos de decisão
-(`if`, `for`, `while`, `case`, `catch`, `&&`, `||`, `?`), medido em 03/09/2026:
+O requisito é complexidade ciclomática ≥ 10 por classe. Contabilizamos com o **PMD 7.17.0**, regra
+[`CyclomaticComplexity`](https://pmd.github.io/pmd/pmd_rules_java_design.html#cyclomaticcomplexity):
+cada método começa em 1 e soma +1 por `if`, `case`, laço, `catch`, `throw`, `?:`, `&&` e `||`.
+A CC da classe é a soma dos métodos. Medido em 11/10/2026:
 
-| Classe | CC aprox. | Responsável |
-|---|---|---|
-| `service/VendaService.java` | 29 | |
-| `service/CaixaService.java` | 28 | |
-| `service/RecebimentoService.java` | 24 | |
-| `service/notafiscal/NotaFiscalItemService.java` | 24 | |
-| `service/notafiscal/NotaFiscalService.java` | 16 | |
-| `service/cartao/CartaoLancamentoService.java` | 16 | |
-| `service/CaixaLancamentoService.java` | 16 | |
-| `service/PagarService.java` | 10 | |
+| Classe | CC da classe | Método mais complexo | Responsável |
+|---|---|---|---|
+| `service/VendaService.java` | 48 | 19 | |
+| `service/CaixaService.java` | 43 | 21 | |
+| `service/RecebimentoService.java` | 41 | 24 | |
+| `service/notafiscal/NotaFiscalItemService.java` | 36 | 21 | |
+| `service/notafiscal/NotaFiscalService.java` | 28 | 11 | |
+| `service/cartao/CartaoLancamentoService.java` | 27 | 9 | |
+| `service/CaixaLancamentoService.java` | 19 | 17 | |
+| `service/PagarService.java` | 18 | 11 | |
 
-OBS.: seria bom confirmar os números com uma ferramenta oficial (SonarQube ou uma das outras) antes
-de fechar o Plano de Teste.
+As entidades de `model/` também passam de 30, mas só porque somam dezenas de getters e setters de CC 1. Essas classes são CRUD, e não entram no
+escopo do trabalho.
+
+Para medir de novo: rodar a regra com `classReportLevel` e `methodReportLevel` em 1. Nos valores
+padrão, o PMD só reporta classes com CC ≥ 80.
 
 ## 6. Responsabilidades do grupo
 
