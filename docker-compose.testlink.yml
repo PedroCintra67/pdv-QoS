@@ -1,0 +1,39 @@
+# TestLink para os casos manuais. Tutorial de como usar na seção 8 em docs/SETUP.md
+# Baseado no compose oficial: github.com/TestLinkOpenSourceTRMS/testlink-code
+services:
+  db:
+    image: mysql:8.3.0
+    restart: unless-stopped
+    environment:
+      - MYSQL_USER=teste
+      - MYSQL_PASSWORD=teste
+      - MYSQL_ROOT_PASSWORD=teste
+      - MYSQL_DATABASE=testlink
+    volumes:
+      - mysql:/var/lib/mysql
+    configs:
+      - source: usuario-localhost
+        target: /docker-entrypoint-initdb.d/usuario-localhost.sql
+
+  app:
+    image: ghcr.io/neiesc/testlink-code:testlink_1_9_20_fixed
+    command: bash -c "chown -R www-data:www-data /var/testlink && apache2-foreground"
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8090:80"
+    volumes:
+      - logs:/var/testlink/logs
+      - upload_area:/var/testlink/upload_area
+
+configs:
+  usuario-localhost:
+    content: |
+      CREATE USER 'teste'@'localhost' IDENTIFIED BY 'teste';
+      GRANT ALL ON testlink.* TO 'teste'@'localhost';
+
+volumes:
+  mysql:
+  logs:
+  upload_area:

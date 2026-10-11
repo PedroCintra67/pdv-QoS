@@ -107,11 +107,45 @@ Disponível sem fazer nada: JUnit 4 e Mockito (vêm do `spring-boot-starter-test
 
 | Entrega | Ferramenta | Quando adicionar |
 |---|---|---|
-| 1 | TestLink (casos manuais) | conta/instância antes de 11/10 |
+| 1 | TestLink (casos manuais) | já disponível, ver [TestLink](#testlink) |
 | 1 | GitHub Issues | já disponível |
 | 2 | PIT (`pitest-maven`) — escore de mutação | adicionar ao `pom.xml` na Entrega 2 |
 | 2 | SonarQube (`sonar-scanner` ou SonarCloud) | Entrega 2 |
 | 2 | Selenium WebDriver — testes E2E | Entrega 2 |
+
+### TestLink
+
+O TestLink roda em Docker separado do pdv, na porta 8090.
+
+```sh
+# sobe o TestLink
+docker compose -p testlink -f docker-compose.testlink.yml up -d
+
+# derruba
+docker compose -p testlink -f docker-compose.testlink.yml down
+```
+
+Abra o link http://localhost:8090. 
+Na primeira vez vai abrir o instalador. Clicar em "New installation", aceitar a licença e preencher o banco assim:
+
+| Campo | Valor |
+|---|---|
+| Database type | MySQL/MariaDB |
+| Database host | `db` |
+| Database name | `testlink` |
+| Table prefix | vazio |
+| Database admin login / senha | `root` / `teste` |
+| TestLink DB login / senha | `teste` / `teste` |
+
+Depois que a instalação concluir, reabra http://localhost:8090 e entre com `admin` / `admin`. Vai abrir uma tela de criar um projeto novo, pode nomear o projeto como "pdv", prefixo "PDV" e resto das configurações default. Depois, só seguir o passo a passo abaixo:
+
+1) Aperte na aba "Test Specification". Dentro dessa página, na parte da direita, aperte na Engrenagem e depois no símbolo de "+". Aqui você vai criar a suíte (conjunto de testes) da sua funcionalidade, dê um nome e os detalhes
+2) Clique na nova pasta criada, e aperte na Engrenagem de novo, dessa vez selecionando o símbolo de "+" para Test Case. Na nova tela, preencha os detalhes sobre o cenário a ser testado. OBS: o nome do teste é "ID (da planilha) - Nome do caso"
+3) Com o Test Case criado, aperte em "Create step" e escreva o passo a passo
+4) Volte ao home e clique em "Test Plan Management" (na direita da tela). Crie o plano e marque como Active e Public
+5) Volte ao Home e vá em Builds / Releases (direita da tela): crie um build com o commit a ser testado, passando o id do commit e branch, e novamente configure como Active e Open
+6) Volte ao home e aperte em "Add / Remove Test Cases". Na árvore de pastas na parte inferior da tela, aperte na suíte criada, vai aparecer a lista de testes criados. Selecione na caixinha branca, em seguida aperte em "Add selected", a linha deve ficar amarela
+7) Execução do teste: suba o docker do pdv de novo, ao mesmo tempo volte ao home do TestLink, onde você deve apertar "Execute Tests". Verifique se o build está correto, em seguida abra a árvore e selecione o teste. Com isso, vai aparecer exatamente o Caso de Teste a ser executado e basta preenchê-lo, de forma escrita e com prints
 
 ## 9. Prazos
 
