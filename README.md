@@ -21,7 +21,7 @@ Fork de [repo-software-testing-courses/pdv](https://github.com/repo-software-tes
 |---|---|---|---|---|
 | Daniel Barros | [@drbarros2004](https://github.com/drbarros2004) | [CaixaService](src/test/java/net/originmobi/pdv/service/CaixaServiceTest.java) | Abertura e fechamento de caixa | [daniel_barros/](testlink_evidences/daniel_barros/) |
 | Bernardo Pozzato | [@bepo7](https://github.com/bepo7) | [RecebimentoService](src/test/java/net/originmobi/pdv/service/RecebimentoServiceTest.java) | Cadastro de pessoas | [Bernardo Pozzato/](testlink_evidences/Bernardo%20Pozzato/) |
-| Guilherme Hu | [@guilherme-hu](https://github.com/guilherme-hu) | CaixaLancamentoService | Suprimento e retirada de caixa | — |
+| Guilherme Hu | [@guilherme-hu](https://github.com/guilherme-hu) | [CaixaLancamentoService](src/test/java/net/originmobi/pdv/service/CaixaLancamentoServiceTest.java) | Suprimento e retirada de caixa | — |
 | Gabriel Schmitz | [@gabrielxmit10](https://github.com/gabrielxmit10) | [NotaFiscalItemService](src/test/java/net/originmobi/pdv/service/notafiscal/NotaFiscalItemServiceTest.java) | Cadastro e edição de produtos | [Gabriel Schmitz/](testlink_evidences/Gabriel%20Schmitz/) |
 | Pedro Cintra | [@PedroCintra67](https://github.com/PedroCintra67) | [VendaService](src/test/java/net/originmobi/pdv/service/VendaServiceTest.java) | Fechamento de venda | [Pedro Cintra/](testlink_evidences/Pedro%20Cintra/) |
 
