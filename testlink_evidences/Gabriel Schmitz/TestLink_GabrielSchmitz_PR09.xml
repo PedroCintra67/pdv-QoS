@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+	<testplan>
+		<name><![CDATA[Plano de Testes — Entrega 1]]></name>
+		
+	<testproject>		<name><![CDATA[pdv]]></name>		<prefix><![CDATA[PDV]]></prefix>		<internal_id><![CDATA[1]]></internal_id>
+	</testproject>
+		
+	<build>		<name><![CDATA[Entrega 1 — Gabriel Schmitz]]></name>		<internal_id><![CDATA[1]]></internal_id>
+	</build>
+		<testsuites>
+	<testsuite name="Cadastro e edição de produtos" >
+		<node_order><![CDATA[1]]></node_order>
+		<details><![CDATA[<p>Testes manuais de cadastro e edi&ccedil;&atilde;o de produtos, realizados por Gabriel Schmitz.</p>
+]]>
+		</details>
+<testcase internalid="3" name="PR09 - Cadastrar produto com valor de venda de R$ 1.000,00">
+	<node_order><![CDATA[1000]]></node_order>
+	<exec_order><![CDATA[10000]]></exec_order>
+	<externalid><![CDATA[1]]></externalid>
+	<fullexternalid><![CDATA[]]></fullexternalid>
+	<version><![CDATA[1]]></version>
+	<summary><![CDATA[<p>Verificar se o sistema cadastra um produto com valor de venda<br />
+de R$ 1.000,00, mantendo corretamente o valor informado.</p>
+]]></summary>
+	<preconditions><![CDATA[<p>1. Aplica&ccedil;&atilde;o PDV em execu&ccedil;&atilde;o.<br />
+2. Fornecedor, Categoria e Grupo com op&ccedil;&otilde;es dispon&iacute;veis.<br />
+3. Tela de cadastro de produtos acess&iacute;vel.</p>
+]]></preconditions>
+	<execution_type><![CDATA[1]]></execution_type>
+	<importance><![CDATA[2]]></importance>
+	<estimated_exec_duration></estimated_exec_duration>
+	<status>1</status>
+	<is_open>1</is_open>
+	<active>1</active>
+<steps>
+<step>
+	<step_number><![CDATA[1]]></step_number>
+	<actions><![CDATA[<p>Entrar no PDV como gerente, senha 123.</p>
+]]></actions>
+	<expectedresults><![CDATA[<p>Login realizado e tela inicial exibida.</p>
+]]></expectedresults>
+	<execution_type><![CDATA[1]]></execution_type>
+</step>
+
+<step>
+	<step_number><![CDATA[2]]></step_number>
+	<actions><![CDATA[<p>Acessar Produtos e clicar em Novo.</p>
+]]></actions>
+	<expectedresults><![CDATA[<p>Formul&aacute;rio de cadastro de produto exibido.</p>
+]]></expectedresults>
+	<execution_type><![CDATA[1]]></execution_type>
+</step>
+
+<step>
+	<step_number><![CDATA[3]]></step_number>
+	<actions><![CDATA[<p>Preencher os dados abaixo e conferir os pre&ccedil;os antes de salvar.<br />
+<br />
+&nbsp;</p>
+
+<p>Preencher os dados abaixo e conferir os pre&ccedil;os antes de salvar.</p>
+
+<p>Descri&ccedil;&atilde;o: Teste PR09 TestLink<br />
+Valor Custo: 5,00<br />
+Valor Venda: 1.000,00<br />
+Fornecedor, Categoria e Grupo: selecionar as op&ccedil;&otilde;es dispon&iacute;veis<br />
+e registrar os nomes escolhidos.<br />
+Balan&ccedil;a: NAO<br />
+Ativo: ATIVO<br />
+Controla Estoque: NAO<br />
+Vend&aacute;vel: SIM<br />
+Unidade: UN<br />
+Substitui&ccedil;&atilde;o Tribut&aacute;ria: NAO<br />
+NCM: 12345678 (dado fict&iacute;cio)<br />
+CEST, Tributa&ccedil;&atilde;o, Modalidade da base de c&aacute;lculo<br />
+e Data Validade: deixar vazios.</p>
+]]></actions>
+	<expectedresults><![CDATA[<p>Campos preenchidos; Valor Custo exibido como 5,00 e Valor Venda como 1.000,00.</p>
+]]></expectedresults>
+	<execution_type><![CDATA[1]]></execution_type>
+</step>
+
+<step>
+	<step_number><![CDATA[4]]></step_number>
+	<actions><![CDATA[<p>Clicar em Salvar.</p>
+]]></actions>
+	<expectedresults><![CDATA[<p>Produto cadastrado com sucesso, sem erro t&eacute;cnico.</p>
+]]></expectedresults>
+	<execution_type><![CDATA[1]]></execution_type>
+</step>
+
+<step>
+	<step_number><![CDATA[5]]></step_number>
+	<actions><![CDATA[<p>Acessar a lista de Produtos, localizar o produto e reabrir sua edi&ccedil;&atilde;o.</p>
+]]></actions>
+	<expectedresults><![CDATA[<p>Produto encontrado e Valor Venda mantido em 1.000,00.</p>
+]]></expectedresults>
+	<execution_type><![CDATA[1]]></execution_type>
+</step>
+</steps>
+<platforms/>
+
+</testcase>
+</testsuite></testsuites>
+
+	</testplan>
