@@ -34,10 +34,10 @@ import net.originmobi.pdv.repository.CaixaLancamentoRepository;
 public class CaixaLancamentoServiceTest {
 
     @Mock
-    private CaixaLancamentoRepository repo; 
+    private CaixaLancamentoRepository repo;
 
     @InjectMocks
-    private CaixaLancamentoService service; 
+    private CaixaLancamentoService service;
 
     private Caixa caixa;
 
@@ -50,7 +50,7 @@ public class CaixaLancamentoServiceTest {
     // Testes do método lancamento
 
     // Legenda da organização dos testes: cada teste é numerado de C1 a C14, dizendo qual decisão do grafo é testada
-    // C1 = caminho base, onde tudo dá certo (retorna na linha 85) 
+    // C1 = caminho base, onde tudo dá certo (retorna na linha 85)
     // C2 = caixa ausente mas não fechada (linha 39)
     // C3 = caixa fechada mas não ausente (linha 40)
     // C4 = saída de caixa com saldo suficiente (linha 46)
@@ -64,9 +64,11 @@ public class CaixaLancamentoServiceTest {
     // C12 = suprimento com observação preenchida no ternário (linha 67)
     // C13 = erro dentro do primeiro try (linha 73)
     // C14 = erro ao salvar (linha 80)
+    // C3, C6, C10 e C12 são caminhos inviáveis com um objeto real: o mesmo getter teria que mudar de resposta
+    // entre duas leituras. Por isso usam mock com thenReturn(a, b), só para cobrir a aresta do grafo
 
     @Test
-    public void testC1_SuprimentoSemObservacao() { // caminho base 
+    public void testC1_SuprimentoSemObservacao() { // caminho base
         CaixaLancamento lanc = new CaixaLancamento("", 50.0, TipoLancamento.SUPRIMENTO, EstiloLancamento.ENTRADA, caixa, null);
 
         String obtido = service.lancamento(lanc);
@@ -90,7 +92,7 @@ public class CaixaLancamentoServiceTest {
     }
 
     @Test
-    public void testC1_SuprimentoEmCaixaFechado() { 
+    public void testC1_SuprimentoEmCaixaFechado() {
         caixa.setData_fechamento(new Timestamp(System.currentTimeMillis()));
         CaixaLancamento lanc = new CaixaLancamento("", 50.0, TipoLancamento.SUPRIMENTO, EstiloLancamento.ENTRADA, caixa, null);
 
@@ -110,6 +112,7 @@ public class CaixaLancamentoServiceTest {
         verify(repo).save(lanc);
     }
 
+    // caminho inviável com objeto real: o mock força a resposta só para cobrir a aresta
     @Test
     public void testC3_CaixaFechado() { // getCaixa() vem vazio na 1ª leitura e fechado na 2ª, entrando no if
         caixa.setData_fechamento(new Timestamp(System.currentTimeMillis()));
@@ -157,6 +160,7 @@ public class CaixaLancamentoServiceTest {
         verify(repo, never()).save(any());
     }
 
+    // caminho inviável com objeto real: o mock força a resposta só para cobrir a aresta
     @Test
     public void testC6_EstiloMuda() { // getEstilo() vem SAIDA no if do saldo e ENTRADA no if seguinte
         CaixaLancamento lanc = mock(CaixaLancamento.class);
@@ -244,6 +248,7 @@ public class CaixaLancamentoServiceTest {
         assertEquals("Sangria de caixa", lanc.getObservacao());
     }
 
+    // caminho inviável com objeto real: o mock força a resposta só para cobrir a aresta
     @Test
     public void testC10_ObservacaoMudaNaSangria() { // getObservacao() vem vazia no if e preenchida no ternário
         CaixaLancamento lanc = mock(CaixaLancamento.class);
@@ -278,6 +283,7 @@ public class CaixaLancamentoServiceTest {
         assertEquals("Suprimento de caixa", lanc.getObservacao());
     }
 
+    // caminho inviável com objeto real: o mock força a resposta só para cobrir a aresta
     @Test
     public void testC12_ObservacaoMudaNoSuprimento() { // mesmo caso do C10 mas para suprimento
         CaixaLancamento lanc = mock(CaixaLancamento.class);
