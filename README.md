@@ -10,16 +10,24 @@ Fork de [repo-software-testing-courses/pdv](https://github.com/repo-software-tes
 | Código-fonte original (fork) | [src/](src/) |
 | Testes unitários | [src/test/java](src/test/java) |
 | Plano de Teste (IEEE 829) | [Google Docs](https://docs.google.com/document/d/1MENsC4y9bwNVXcliehmjZG5cn4AUcddNN_FSasJhsMM/edit?usp=sharing) |
-| Casos de teste manuais | [Google Sheets](https://docs.google.com/spreadsheets/d/1Cty37931EZiXMWSM4s3-YRMZzpC-lXd195lgLeqfwbk/edit?usp=sharing) |
-| Execuções no TestLink (prints + PDF) | [testlink_evidences/](testlink_evidences/) |
+| Casos de teste manuais (todos) | [Google Sheets](https://docs.google.com/spreadsheets/d/1Cty37931EZiXMWSM4s3-YRMZzpC-lXd195lgLeqfwbk/edit?usp=sharing) |
+| Execuções no TestLink (1 cenário por funcionalidade, prints + PDF) | [testlink_evidences/](testlink_evidences/) |
 | Bugs reportados | [Issues](https://github.com/drbarros2004/pdv-QoS/issues) |
 | Complexidade ciclomática (PMD) | [metricas/pmd/pmd.txt](metricas/pmd/pmd.txt) |
 
 ## Integrantes
 
-| Nome | GitHub | Responsabilidades |
-|---|---|---|
-| | | |
+| Nome | GitHub | Teste unitário (classe) | Testes manuais (funcionalidade) | Cenário no TestLink |
+|---|---|---|---|---|
+| Daniel Barros | [@drbarros2004](https://github.com/drbarros2004) | [CaixaService](src/test/java/net/originmobi/pdv/service/CaixaServiceTest.java) | Abertura e fechamento de caixa | [daniel_barros/](testlink_evidences/daniel_barros/) |
+| Bernardo Pozzato | [@bepo7](https://github.com/bepo7) | [RecebimentoService](src/test/java/net/originmobi/pdv/service/RecebimentoServiceTest.java) | Cadastro de pessoas | [Bernardo Pozzato/](testlink_evidences/Bernardo%20Pozzato/) |
+| Guilherme Hu | [@guilherme-hu](https://github.com/guilherme-hu) | CaixaLancamentoService | Suprimento e retirada de caixa | — |
+| Gabriel Schmitz | [@gabrielxmit10](https://github.com/gabrielxmit10) | [NotaFiscalItemService](src/test/java/net/originmobi/pdv/service/notafiscal/NotaFiscalItemServiceTest.java) | Cadastro e edição de produtos | [Gabriel Schmitz/](testlink_evidences/Gabriel%20Schmitz/) |
+| Pedro Cintra | [@PedroCintra67](https://github.com/PedroCintra67) | [VendaService](src/test/java/net/originmobi/pdv/service/VendaServiceTest.java) | Fechamento de venda | [Pedro Cintra/](testlink_evidences/Pedro%20Cintra/) |
+
+Cada integrante projetou e executou os casos de teste manuais da sua funcionalidade na
+[planilha](https://docs.google.com/spreadsheets/d/1Cty37931EZiXMWSM4s3-YRMZzpC-lXd195lgLeqfwbk/edit?usp=sharing)
+(uma aba por funcionalidade). Um desses casos foi também registrado e executado no TestLink.
 
 ## Como rodar
 
