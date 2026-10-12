@@ -585,6 +585,55 @@ public class RecebimentoServiceTest {
         }
     }
 
+    @Test
+    public void testRemoverRecebimentoAberto() {
+        Recebimento recebimento = recebimentoAberto();
+        when(recebimentoRepository.findById(COD_RECEBIMENTO)).thenReturn(Optional.of(recebimento));
+
+        String obtido = recebimentos.remover(COD_RECEBIMENTO);
+        String esperado = "removido com sucesso";
+
+        assertEquals(esperado, obtido);
+        verify(recebimentoRepository).findById(COD_RECEBIMENTO);
+        verify(recebimentoRepository).deleteById(COD_RECEBIMENTO);
+    }
+
+    @Test
+    public void testRemoverRecebimentoProcessado() {
+        Recebimento recebimento = recebimentoAberto();
+        recebimento.setData_processamento(new java.sql.Timestamp(System.currentTimeMillis()));
+        when(recebimentoRepository.findById(COD_RECEBIMENTO)).thenReturn(Optional.of(recebimento));
+
+        try {
+            recebimentos.remover(COD_RECEBIMENTO);
+            fail("Era esperado rejeitar a remoção do recebimento processado");
+        } catch (RuntimeException e) {
+            String obtido = e.getMessage();
+            String esperado = "Esse recebimento não pode ser removido, pois ele já esta processado";
+            assertEquals(esperado, obtido);
+        }
+        verify(recebimentoRepository).findById(COD_RECEBIMENTO);
+        verify(recebimentoRepository, never()).deleteById(COD_RECEBIMENTO);
+    }
+
+    @Test
+    public void testRemoverRecebimentoFalhaAoExcluir() {
+        Recebimento recebimento = recebimentoAberto();
+        when(recebimentoRepository.findById(COD_RECEBIMENTO)).thenReturn(Optional.of(recebimento));
+        doThrow(new RuntimeException("falha")).when(recebimentoRepository).deleteById(COD_RECEBIMENTO);
+
+        try {
+            recebimentos.remover(COD_RECEBIMENTO);
+            fail("Era esperado tratar a falha ao excluir o recebimento");
+        } catch (RuntimeException e) {
+            String obtido = e.getMessage();
+            String esperado = "Erro ao remover orçamento, chame o suporte";
+            assertEquals(esperado, obtido);
+        }
+        verify(recebimentoRepository).findById(COD_RECEBIMENTO);
+        verify(recebimentoRepository).deleteById(COD_RECEBIMENTO);
+    }
+
     private Recebimento recebimentoAberto() {
         Recebimento recebimento = new Recebimento();
         recebimento.setCodigo(COD_RECEBIMENTO);
