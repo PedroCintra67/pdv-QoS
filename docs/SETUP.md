@@ -81,11 +81,16 @@ A CC da classe é a soma dos métodos. Medido em 11/10/2026:
 | `service/CaixaLancamentoService.java` | 19 | 17 | |
 | `service/PagarService.java` | 18 | 11 | |
 
-As entidades de `model/` também passam de 30, mas só porque somam dezenas de getters e setters de CC 1. Essas classes são CRUD, e não entram no
-escopo do trabalho.
+As entidades de `model/` também passam de 30, mas só porque somam dezenas de getters e setters de CC 1. Essas classes são CRUD, e não entram no escopo do trabalho.
 
-Para medir de novo: rodar a regra com `classReportLevel` e `methodReportLevel` em 1. Nos valores
-padrão, o PMD só reporta classes com CC ≥ 80.
+OBS: além dos casos citados acima, o PMD adiciona +1 na CC a cada `throw`, então os números do PMD saem um pouco maiores que a contagem na mão
+
+Para medir de novo, utilize o comando abaixo:
+
+```sh
+# gera metricas/pmd/pmd.txt com a CC de todas as classes e métodos
+docker compose run --rm --no-deps pdv-app mvn pmd:pmd
+```
 
 ## 6. Responsabilidades do grupo
 
@@ -108,6 +113,7 @@ Disponível sem fazer nada: JUnit 4 e Mockito (vêm do `spring-boot-starter-test
 | Entrega | Ferramenta | Quando adicionar |
 |---|---|---|
 | 1 | TestLink (casos manuais) | já disponível, ver [TestLink](#testlink) |
+| 1 | PMD (complexidade ciclomática) | já disponível, ver a seção 5 |
 | 1 | GitHub Issues | já disponível |
 | 2 | PIT (`pitest-maven`) — escore de mutação | adicionar ao `pom.xml` na Entrega 2 |
 | 2 | SonarQube (`sonar-scanner` ou SonarCloud) | Entrega 2 |

@@ -111,10 +111,37 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
+			<!-- complexidade ciclomática: mvn pmd:pmd (ver docs/SETUP.md) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.26.0</version>
+				<configuration>
+					<rulesets>
+						<ruleset>metricas/pmd/complexidade-ciclomatica.xml</ruleset>
+					</rulesets>
+					<format>txt</format>
+					<targetDirectory>${project.basedir}/metricas/pmd</targetDirectory>
+					<linkXRef>false</linkXRef>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-core</artifactId>
+						<version>7.17.0</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-java</artifactId>
+						<version>7.17.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.11</version> <!-- Verifique a versão mais recente -->
+				<version>0.8.11</version> 
 				<executions>
 					<execution>
 						<goals>

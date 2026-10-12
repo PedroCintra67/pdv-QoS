@@ -24,3 +24,6 @@ hs_err_pid*
 
 # Build output
 target/
+
+# XML do PMD (repete o pmd.txt)
+metricas/pmd/pmd.xml
