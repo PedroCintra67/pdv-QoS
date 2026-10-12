@@ -11,6 +11,7 @@ Fork de [repo-software-testing-courses/pdv](https://github.com/repo-software-tes
 | Testes unitários | [src/test/java](src/test/java) |
 | Plano de Teste (IEEE 829) | [Google Docs](https://docs.google.com/document/d/1MENsC4y9bwNVXcliehmjZG5cn4AUcddNN_FSasJhsMM/edit?usp=sharing) |
 | Casos de teste manuais | [Google Sheets](https://docs.google.com/spreadsheets/d/1Cty37931EZiXMWSM4s3-YRMZzpC-lXd195lgLeqfwbk/edit?usp=sharing) |
+| Execuções no TestLink (prints + PDF) | [testlink_evidences/](testlink_evidences/) |
 | Bugs reportados | [Issues](https://github.com/drbarros2004/pdv-QoS/issues) |
 | Complexidade ciclomática (PMD) | [metricas/pmd/pmd.txt](metricas/pmd/pmd.txt) |
 
