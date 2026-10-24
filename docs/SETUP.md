@@ -115,6 +115,7 @@ Disponível sem fazer nada: JUnit 4 e Mockito (vêm do `spring-boot-starter-test
 | 1 | TestLink (casos manuais) | já disponível, ver [TestLink](#testlink) |
 | 1 | PMD (complexidade ciclomática) | já disponível, ver a seção 5 |
 | 1 | GitHub Issues | já disponível |
+| 2 | JaCoCo (cobertura) | já disponível, ver [JaCoCo](#jacoco) |
 | 2 | PIT (`pitest-maven`) — escore de mutação | adicionar ao `pom.xml` na Entrega 2 |
 | 2 | SonarQube (`sonar-scanner` ou SonarCloud) | Entrega 2 |
 | 2 | Selenium WebDriver — testes E2E | Entrega 2 |
@@ -152,6 +153,19 @@ Depois que a instalação concluir, reabra http://localhost:8090 e entre com `ad
 5) Volte ao Home e vá em Builds / Releases (direita da tela): crie um build com o commit a ser testado, passando o id do commit e branch, e novamente configure como Active e Open
 6) Volte ao home e aperte em "Add / Remove Test Cases". Na árvore de pastas na parte inferior da tela, aperte na suíte criada, vai aparecer a lista de testes criados. Selecione na caixinha branca, em seguida aperte em "Add selected", a linha deve ficar amarela
 7) Execução do teste: suba o docker do pdv de novo, ao mesmo tempo volte ao home do TestLink, onde você deve apertar "Execute Tests". Verifique se o build está correto, em seguida abra a árvore e selecione o teste. Com isso, vai aparecer exatamente o Caso de Teste a ser executado e basta preenchê-lo, de forma escrita e com prints
+
+### JaCoCo
+
+O relatório é reproduzível a partir do commit. Para gerar o relatório do estado
+da Entrega 1 (útil para prints de "antes" nos slides), usar esses comandos com worktree vazia:
+
+```sh
+git switch --detach fc0c852 # último commit da Entrega 1
+docker compose run --rm pdv-app mvn clean test "-Dmaven.clean.failOnError=false" "-Dmaven.test.failure.ignore=true"
+docker compose run --rm --no-deps -v "${PWD}/target:/host-target" pdv-app cp -r target/site/jacoco /host-target/
+start target/jacoco/index.html
+git switch master
+```
 
 ## 9. Prazos
 

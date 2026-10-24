@@ -214,6 +214,59 @@ public class CaixaServiceTest {
 		assertEquals("Caixa da manhã", caixa.getDescricao());
 	}
 
+	@Test
+	public void cadastroDeCofreComDescricaoInformadaMantemDescricao() {
+		Caixa cofre = caixa(CaixaTipo.COFRE, 0.0, "Cofre da loja");
+
+		service.cadastro(cofre);
+
+		assertEquals("Cofre da loja", cofre.getDescricao());
+	}
+
+	@Test
+	public void cadastroDeBancoComDescricaoInformadaMantemDescricao() {
+		Caixa banco = caixa(CaixaTipo.BANCO, 0.0, "Conta principal");
+		banco.setAgencia("1");
+		banco.setConta("2");
+
+		service.cadastro(banco);
+
+		assertEquals("Conta principal", banco.getDescricao());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #23)
+	@Test
+	public void cadastroDeCaixaComDescricaoNulaUsaPadrao() {
+		Caixa caixa = caixa(CaixaTipo.CAIXA, 0.0, null);
+		when(caixas.caixaAberto()).thenReturn(Optional.empty());
+
+		service.cadastro(caixa);
+
+		assertEquals("Caixa diário", caixa.getDescricao());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #23)
+	@Test
+	public void cadastroDeCofreComDescricaoNulaUsaPadrao() {
+		Caixa cofre = caixa(CaixaTipo.COFRE, 0.0, null);
+
+		service.cadastro(cofre);
+
+		assertEquals("Cofre", cofre.getDescricao());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #23)
+	@Test
+	public void cadastroDeBancoComDescricaoNulaUsaPadrao() {
+		Caixa banco = caixa(CaixaTipo.BANCO, 0.0, null);
+		banco.setAgencia("1");
+		banco.setConta("2");
+
+		service.cadastro(banco);
+
+		assertEquals("Banco", banco.getDescricao());
+	}
+
 	// cadastro: dados preenchidos pelo sistema
 
 	@Test
@@ -226,6 +279,28 @@ public class CaixaServiceTest {
 
 		assertEquals("12345", banco.getAgencia());
 		assertEquals("123456", banco.getConta());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #23)
+	@Test
+	public void cadastroDeBancoSemAgenciaLancaExcecao() {
+		Caixa banco = caixa(CaixaTipo.BANCO, 0.0, "");
+		banco.setConta("2");
+
+		// mensagem que não existe no código, criada para o teste
+		assertLancaExcecao("Agência e conta são obrigatórias", () -> service.cadastro(banco));
+		verify(caixas, never()).save(any());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #23)
+	@Test
+	public void cadastroDeBancoSemContaLancaExcecao() {
+		Caixa banco = caixa(CaixaTipo.BANCO, 0.0, "");
+		banco.setAgencia("1");
+
+		// mensagem que não existe no código, criada para o teste
+		assertLancaExcecao("Agência e conta são obrigatórias", () -> service.cadastro(banco));
+		verify(caixas, never()).save(any());
 	}
 
 	@Test
@@ -273,6 +348,28 @@ public class CaixaServiceTest {
 
 		assertEquals("Favor, informe a senha", mensagem);
 		verify(caixas, never()).findById(any());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #22)
+	@Test
+	public void fechaCaixaComSenhaNulaPedeSenha() {
+		when(usuarios.buscaUsuario("gerente")).thenReturn(usuario);
+
+		String mensagem = service.fechaCaixa(1L, null);
+
+		assertEquals("Favor, informe a senha", mensagem);
+		verify(caixas, never()).findById(any());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #21)
+	@Test
+	public void fechaCaixaInexistenteLancaExcecao() {
+		when(usuarios.buscaUsuario("gerente")).thenReturn(usuario);
+		when(caixas.findById(1L)).thenReturn(Optional.empty());
+
+		// mensagem que não existe no código, criada para o teste
+		assertLancaExcecao("Caixa não encontrado", () -> service.fechaCaixa(1L, SENHA));
+		verify(caixas, never()).save(any());
 	}
 
 	@Test
@@ -332,7 +429,7 @@ public class CaixaServiceTest {
 		assertLancaExcecao("Ocorreu um erro ao fechar o caixa, chame o suporte", () -> service.fechaCaixa(1L, SENHA));
 	}
 
-	// --- listarCaixas ---
+	// listarCaixas
 
 	@Test
 	public void listarCaixasSemDataListaAbertos() {
@@ -363,7 +460,7 @@ public class CaixaServiceTest {
 		verify(caixas, never()).listaCaixasAbertos();
 	}
 
-	// --- listaBancosAbertosTipoFilterBanco ---
+	// listaBancosAbertosTipoFilterBanco
 
 	@Test
 	public void listaBancosSemDataBuscaBancosAbertos() {
