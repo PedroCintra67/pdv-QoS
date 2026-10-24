@@ -6,7 +6,8 @@ Fork de [repo-software-testing-courses/pdv](https://github.com/repo-software-tes
 
 | Artefato | Link |
 |---|---|
-| Setup do ambiente / guia do grupo | [docs/SETUP.md](docs/SETUP.md) |
+| Setup do ambiente / guia da Entrega 1 | [docs/ENTREGA1.md](docs/ENTREGA1.md) |
+| Guia da Entrega 2 | [docs/ENTREGA2.md](docs/ENTREGA2.md) |
 | Código-fonte original (fork) | [src/](src/) |
 | Testes unitários | [src/test/java](src/test/java) |
 | Plano de Teste (IEEE 829) | [Google Docs](https://docs.google.com/document/d/1MENsC4y9bwNVXcliehmjZG5cn4AUcddNN_FSasJhsMM/edit?usp=sharing) |
@@ -44,7 +45,7 @@ A primeira execução leva alguns minutos (baixa a imagem e as dependências Mav
 
 Testes: `docker compose run --rm pdv-app mvn test`
 
-Todos os comandos e detalhes em [docs/SETUP.md](docs/SETUP.md).
+Todos os comandos e detalhes em [docs/ENTREGA1.md](docs/ENTREGA1.md) e [docs/ENTREGA2.md](docs/ENTREGA2.md).
 
 ---
 

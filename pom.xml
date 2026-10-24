@@ -111,7 +111,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- complexidade ciclomática: mvn pmd:pmd (ver docs/SETUP.md) -->
+			<!-- complexidade ciclomática: mvn pmd:pmd (ver docs/ENTREGA1.md) -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>

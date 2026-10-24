@@ -1,4 +1,4 @@
-# TestLink para os casos manuais. Tutorial de como usar na seção 8 em docs/SETUP.md
+# TestLink para os casos manuais. Tutorial de como usar na seção 8 em docs/ENTREGA1.md
 # Baseado no compose oficial: github.com/TestLinkOpenSourceTRMS/testlink-code
 services:
   db:
