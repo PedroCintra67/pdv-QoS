@@ -139,7 +139,7 @@ public class CaixaServiceTest {
 
 	@Test
 	public void cadastroDeCaixaComValorPositivoLancaSaldoInicial() {
-		Caixa caixa = caixa(CaixaTipo.CAIXA, 50.0, "");
+		Caixa caixa = caixa(CaixaTipo.CAIXA, 0.01, "");
 		when(caixas.caixaAberto()).thenReturn(Optional.empty());
 		when(usuarios.buscaUsuario("gerente")).thenReturn(usuario);
 
@@ -147,7 +147,7 @@ public class CaixaServiceTest {
 
 		CaixaLancamento lancamento = lancamentoRealizado();
 		assertEquals("Abertura de caixa", lancamento.getObservacao());
-		assertEquals(50.0, lancamento.getValor(), 0.0);
+		assertEquals(0.01, lancamento.getValor(), 0.0);
 		assertEquals(TipoLancamento.SALDOINICIAL, lancamento.getTipo());
 		assertEquals(EstiloLancamento.ENTRADA, lancamento.getEstilo());
 		assertSame(caixa, lancamento.getCaixa().get());
@@ -297,6 +297,30 @@ public class CaixaServiceTest {
 	public void cadastroDeBancoSemContaLancaExcecao() {
 		Caixa banco = caixa(CaixaTipo.BANCO, 0.0, "");
 		banco.setAgencia("1");
+
+		// mensagem que não existe no código, criada para o teste
+		assertLancaExcecao("Agência e conta são obrigatórias", () -> service.cadastro(banco));
+		verify(caixas, never()).save(any());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #84)
+	@Test
+	public void cadastroDeBancoComAgenciaVaziaLancaExcecao() {
+		Caixa banco = caixa(CaixaTipo.BANCO, 0.0, "");
+		banco.setAgencia("");
+		banco.setConta("2");
+
+		// mensagem que não existe no código, criada para o teste
+		assertLancaExcecao("Agência e conta são obrigatórias", () -> service.cadastro(banco));
+		verify(caixas, never()).save(any());
+	}
+
+	// teste que exercita o comportamento esperado, mas falha hoje (issue associada: #84)
+	@Test
+	public void cadastroDeBancoComContaVaziaLancaExcecao() {
+		Caixa banco = caixa(CaixaTipo.BANCO, 0.0, "");
+		banco.setAgencia("1");
+		banco.setConta("");
 
 		// mensagem que não existe no código, criada para o teste
 		assertLancaExcecao("Agência e conta são obrigatórias", () -> service.cadastro(banco));
