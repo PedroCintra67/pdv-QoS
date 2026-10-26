@@ -1,0 +1,34 @@
+# SonarQube para o relatório de inspeção (Entrega 2). Tutorial na seção 5 em docs/ENTREGA2.md
+services:
+  sonarqube:
+    image: sonarqube:26.9.0.129388-community
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    ports:
+      - "9000:9000"
+    volumes:
+      - data:/opt/sonarqube/data
+      - extensions:/opt/sonarqube/extensions
+      - logs:/opt/sonarqube/logs
+
+  # scanner roda em um container separado com Java 17, pois SonarQube não aceita Java 8 que é a linguagem do pdv-app
+  scanner:
+    image: maven:3.9-eclipse-temurin-17
+    profiles: [scanner]
+    working_dir: /app
+    environment:
+      - SONAR_TOKEN
+    volumes:
+      - .:/app
+      - m2:/root/.m2
+      - target:/app/target
+    depends_on:
+      - sonarqube
+    command: mvn -DskipTests test-compile org.sonarsource.scanner.maven:sonar-maven-plugin:5.8.0.7211:sonar -Dsonar.host.url=http://sonarqube:9000
+
+volumes:
+  data:
+  extensions:
+  logs:
+  m2:
+  target:
